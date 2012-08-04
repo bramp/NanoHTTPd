@@ -11,10 +11,9 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
-import java.util.Vector;
-import java.util.Hashtable;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.StringTokenizer;
@@ -22,6 +21,8 @@ import java.util.TimeZone;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
+
+import android.webkit.MimeTypeMap;
 
 /**
  * A simple, tiny, nicely embeddable HTTP 1.0 (partially 1.1) server in Java
@@ -87,7 +88,7 @@ public class NanoHTTPD
 	{
 		myOut.println( method + " '" + uri + "' " );
 
-		Enumeration e = header.propertyNames();
+		Enumeration<?> e = header.propertyNames();
 		while ( e.hasMoreElements())
 		{
 			String value = (String)e.nextElement();
@@ -563,7 +564,7 @@ public class NanoHTTPD
 		{
 			int matchcount = 0;
 			int matchbyte = -1;
-			Vector matchbytes = new Vector();
+			ArrayList<Integer> matchbytes = new ArrayList<Integer>();
 			for (int i=0; i<b.length; i++)
 			{
 				if (b[i] == boundary[matchcount])
@@ -573,7 +574,7 @@ public class NanoHTTPD
 					matchcount++;
 					if (matchcount==boundary.length)
 					{
-						matchbytes.addElement(new Integer(matchbyte));
+						matchbytes.add(new Integer(matchbyte));
 						matchcount = 0;
 						matchbyte = -1;
 					}
@@ -588,7 +589,7 @@ public class NanoHTTPD
 			int[] ret = new int[matchbytes.size()];
 			for (int i=0; i < ret.length; i++)
 			{
-				ret[i] = ((Integer)matchbytes.elementAt(i)).intValue();
+				ret[i] = matchbytes.get(i).intValue();
 			}
 			return ret;
 		}
