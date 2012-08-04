@@ -914,9 +914,13 @@ public class NanoHTTPD
 			{
 				// Get MIME type from file name extension, if possible
 				String mime = null;
-				int dot = f.getCanonicalPath().lastIndexOf( '.' );
-				if ( dot >= 0 )
-					mime = (String)theMimeTypes.get( f.getCanonicalPath().substring( dot + 1 ).toLowerCase());
+				String canonicalPath = f.getCanonicalPath();
+				int dot = canonicalPath.lastIndexOf( '.' );
+				if ( dot >= 0 ) {
+					MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+					mime = mimeTypeMap.getMimeTypeFromExtension( canonicalPath.substring( dot + 1 ).toLowerCase());
+				}
+
 				if ( mime == null )
 					mime = MIME_DEFAULT_BINARY;
 
@@ -993,41 +997,6 @@ public class NanoHTTPD
 
 		res.addHeader( "Accept-Ranges", "bytes"); // Announce that the file server accepts partial content requestes
 		return res;
-	}
-
-	/**
-	 * Hashtable mapping (String)FILENAME_EXTENSION -> (String)MIME_TYPE
-	 */
-	private static Hashtable theMimeTypes = new Hashtable();
-	static
-	{
-		StringTokenizer st = new StringTokenizer(
-			"css		text/css "+
-			"htm		text/html "+
-			"html		text/html "+
-			"xml		text/xml "+
-			"txt		text/plain "+
-			"asc		text/plain "+
-			"gif		image/gif "+
-			"jpg		image/jpeg "+
-			"jpeg		image/jpeg "+
-			"png		image/png "+
-			"mp3		audio/mpeg "+
-			"m3u		audio/mpeg-url " +
-			"mp4		video/mp4 " +
-			"ogv		video/ogg " +
-			"flv		video/x-flv " +
-			"mov		video/quicktime " +
-			"swf		application/x-shockwave-flash " +
-			"js			application/javascript "+
-			"pdf		application/pdf "+
-			"doc		application/msword "+
-			"ogg		application/x-ogg "+
-			"zip		application/octet-stream "+
-			"exe		application/octet-stream "+
-			"class		application/octet-stream " );
-		while ( st.hasMoreTokens())
-			theMimeTypes.put( st.nextToken(), st.nextToken());
 	}
 
 	private static int theBufferSize = 16 * 1024;
