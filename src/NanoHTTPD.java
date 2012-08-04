@@ -26,15 +26,16 @@ import android.webkit.MimeTypeMap;
 
 /**
  * A simple, tiny, nicely embeddable HTTP 1.0 (partially 1.1) server in Java
+ * Adapted for Android!
  *
- * <p> NanoHTTPD version 1.25,
+ * <p> NanoHTTPD version 1.25 (android edition),
  * Copyright &copy; 2001,2005-2012 Jarno Elonen (elonen@iki.fi, http://iki.fi/elonen/)
- * and Copyright &copy; 2010 Konstantinos Togias (info@ktogias.gr, http://ktogias.gr)
+ * Copyright &copy; 2010 Konstantinos Togias (info@ktogias.gr, http://ktogias.gr)
+ * Copyright &copy; 2012 Andrew Brampton (http://bramp.net)
  *
  * <p><b>Features + limitations: </b><ul>
  *
  *    <li> Only one Java file </li>
- *    <li> Java 1.1 compatible </li>
  *    <li> Released as open source, Modified BSD licence </li>
  *    <li> No fixed config files, logging, authorization etc. (Implement yourself if you need them.) </li>
  *    <li> Supports parameter parsing of GET and POST methods (+ rudimentary PUT support in 1.25) </li>
@@ -1018,9 +1019,11 @@ public class NanoHTTPD
 	/**
 	 * The distribution licence
 	 */
+	@SuppressWarnings("unused")
 	private static final String LICENCE =
 		"Copyright (C) 2001,2005-2011 by Jarno Elonen <elonen@iki.fi>\n"+
 		"and Copyright (C) 2010 by Konstantinos Togias <info@ktogias.gr>\n"+
+		"and Copyright (C) 2012 Andrew Brampton (http://bramp.net)\n"+
 		"\n"+
 		"Redistribution and use in source and binary forms, with or without\n"+
 		"modification, are permitted provided that the following conditions\n"+
