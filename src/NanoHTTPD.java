@@ -118,7 +118,7 @@ public class NanoHTTPD
 	 * HTTP response.
 	 * Return one of these from serve().
 	 */
-	public class Response
+	public static class Response
 	{
 		/**
 		 * Default constructor: response = HTTP_OK, data = mime = 'null'
@@ -790,8 +790,8 @@ public class NanoHTTPD
 		return newUri;
 	}
 
-	private int myTcpPort;
-	private final ServerSocket myServerSocket;
+	protected int myTcpPort;
+	protected final ServerSocket myServerSocket;
 	private Thread myThread;
 	private File myRootDir;
 
@@ -1004,7 +1004,7 @@ public class NanoHTTPD
 	private static int theBufferSize = 16 * 1024;
 
 	// Change this if you want to log to somewhere else than stdout
-	protected static PrintStream myOut = System.out; 
+	protected static PrintStream myOut = System.out;
 
 	/**
 	 * GMT date formatter
