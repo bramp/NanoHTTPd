@@ -237,6 +237,10 @@ public class NanoHTTPD
 				}
 			});
 		myThread.setDaemon( true );
+	}
+
+	public void start()
+	{
 		myThread.start();
 	}
 
