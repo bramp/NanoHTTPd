@@ -230,7 +230,7 @@ public class NanoHTTPD
 					try
 					{
 						while( true )
-							new HTTPSession( myServerSocket.accept());
+							new HTTPSession( myServerSocket.accept() );
 					}
 					catch ( IOException ioe )
 					{}
