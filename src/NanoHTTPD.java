@@ -715,26 +715,26 @@ public class NanoHTTPD
 
 				OutputStream out = mySocket.getOutputStream();
 				PrintWriter pw = new PrintWriter( out );
-				pw.print("HTTP/1.0 " + status + " \r\n");
+				pw.append("HTTP/1.0 ").append(status).append("\r\n");
 
 				if ( mime != null )
-					pw.print("Content-Type: " + mime + "\r\n");
+					pw.append("Content-Type: ").append(mime).append("\r\n");
 
 				if ( header == null || header.getProperty( "Date" ) == null )
-					pw.print( "Date: " + gmtFrmt.format( new Date()) + "\r\n");
+					pw.append("Date: ").append(gmtFrmtFormat( new Date() )).append("\r\n");
 
 				if ( header != null )
 				{
-					Enumeration e = header.keys();
+					Enumeration<Object> e = header.keys();
 					while ( e.hasMoreElements())
 					{
 						String key = (String)e.nextElement();
 						String value = header.getProperty( key );
-						pw.print( key + ": " + value + "\r\n");
+						pw.append( key ).append( ": " ).append( value ).append("\r\n");
 					}
 				}
 
-				pw.print("\r\n");
+				pw.append("\r\n");
 				pw.flush();
 
 				if ( data != null )
@@ -926,7 +926,7 @@ public class NanoHTTPD
 					mime = MIME_DEFAULT_BINARY;
 
 				// Calculate etag
-				String etag = Integer.toHexString((f.getAbsolutePath() + f.lastModified() + "" + f.length()).hashCode());
+				String etag = Integer.toHexString((f.getAbsolutePath() + Long.toString(f.lastModified()) + Long.toString(f.length())).hashCode());
 
 				// Support (simple) skipping:
 				long startFrom = 0;
@@ -973,7 +973,7 @@ public class NanoHTTPD
 						fis.skip( startFrom );
 
 						res = new Response( HTTP_PARTIALCONTENT, mime, fis );
-						res.addHeader( "Content-Length", "" + dataLen);
+						res.addHeader( "Content-Length", Long.toString(dataLen) );
 						res.addHeader( "Content-Range", "bytes " + startFrom + "-" + endAt + "/" + fileLen);
 						res.addHeader( "ETag", etag);
 					}
@@ -985,7 +985,7 @@ public class NanoHTTPD
 					else
 					{
 						res = new Response( HTTP_OK, mime, new FileInputStream( f ));
-						res.addHeader( "Content-Length", "" + fileLen);
+						res.addHeader( "Content-Length", Long.toString(fileLen) );
 						res.addHeader( "ETag", etag);
 					}
 				}
