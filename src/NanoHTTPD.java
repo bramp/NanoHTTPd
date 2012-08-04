@@ -1021,6 +1021,10 @@ public class NanoHTTPD
 		gmtFrmt.setTimeZone(TimeZone.getTimeZone("GMT"));
 	}
 
+	private static synchronized String gmtFrmtFormat(Date d) {
+		return gmtFrmt.format(d);
+	}
+
 	/**
 	 * The distribution licence
 	 */
