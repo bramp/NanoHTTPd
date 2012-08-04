@@ -641,10 +641,15 @@ public class NanoHTTPD
 		 */
 		private String decodePercent( String str ) throws InterruptedException
 		{
+			// Bail out early if there is no work to do
+			if (str.indexOf('+') == -1 && str.indexOf('%') == -1)
+				return str;
+
 			try
 			{
-				StringBuffer sb = new StringBuffer();
-				for( int i=0; i<str.length(); i++ )
+				final int len = str.length();
+				StringBuffer sb = new StringBuffer(len);
+				for( int i=0; i<len; i++ )
 				{
 					char c = str.charAt( i );
 					switch ( c )
