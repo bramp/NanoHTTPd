@@ -1,14 +1,15 @@
 A simple, tiny, nicely embeddable HTTP 1.0 (partially 1.1) server in Java
+Adapted for Android!
 
-NanoHTTPD version 1.25,
+NanoHTTPD version 1.25 (android edition),
 Copyright (c) 2001,2005-2012 Jarno Elonen (elonen@iki.fi, http://iki.fi/elonen/)
-and Copyright (c) 2010 Konstantinos Togias (info@ktogias.gr, http://ktogias.gr)
+Copyright (c) 2010 Konstantinos Togias (info@ktogias.gr, http://ktogias.gr)
+Copyright (c) 2012 Andrew Brampton (http://bramp.net)
 
 Features & limitations
 ======================
 
 * Only one Java file
-* Java 1.1 compatible
 * Released as open source, Modified BSD licence
 * No fixed config files, logging, authorization etc. (Implement by yourself if you need them.)
 * Supports parameter parsing of GET and POST methods (+ rudimentary PUT support in 1.25)
